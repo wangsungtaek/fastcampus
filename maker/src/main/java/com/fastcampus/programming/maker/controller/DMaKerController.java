@@ -1,11 +1,15 @@
 package com.fastcampus.programming.maker.controller;
 
+import com.fastcampus.programming.maker.dto.CreateDeveloper;
 import com.fastcampus.programming.maker.service.DMakerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,12 +28,14 @@ public class DMaKerController {
 
     }
 
-    @GetMapping("/create-developer")
-    public List<String> createDeveloper() {
+    @PostMapping("/create-developer")
+    public List<String> createDeveloper(
+            @Valid @RequestBody CreateDeveloper.Request request
+    ) {
 
-        log.info("GET /create-developer HTTP/1.1");
+        log.info("request : {}", request);
 
-        dMakerService.createDeveloper();
+        dMakerService.createDeveloper(request);
 
         return List.of("Olaf");
 
