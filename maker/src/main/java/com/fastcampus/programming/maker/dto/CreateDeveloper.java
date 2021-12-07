@@ -1,5 +1,6 @@
 package com.fastcampus.programming.maker.dto;
 
+import com.fastcampus.programming.maker.entity.Developer;
 import com.fastcampus.programming.maker.type.DeveloperLevel;
 import com.fastcampus.programming.maker.type.DeveloperSkillType;
 import lombok.*;
@@ -48,5 +49,14 @@ public class CreateDeveloper {
         private DeveloperSkillType developerSkillType;
         private Integer experienceYears;
         private String memberId;
+
+        public static Response fromEntity(Developer developer) {
+            return Response.builder()
+                    .developerLevel(developer.getDeveloperLevel())
+                    .developerSkillType(developer.getDeveloperSkillType())
+                    .experienceYears(developer.getExperienceYears())
+                    .memberId(developer.getMemberId())
+                    .build();
+        }
     }
 }
