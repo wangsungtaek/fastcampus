@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -34,9 +35,6 @@ class DMakerServiceTest {
 
     @Mock
     private DeveloperRepository developerRepository;
-
-    @Mock
-    private RetiredDeveloperRepository retiredDeveloperRepository;
 
     @InjectMocks
     private DMakerService dMakerService;
@@ -79,9 +77,10 @@ class DMakerServiceTest {
                 .willReturn(Optional.empty());
         ArgumentCaptor<Developer> captor =
                 ArgumentCaptor.forClass(Developer.class);
-
+        given(developerRepository.save(any()))
+                .willReturn(defaultDeveloper);
         //when
-        CreateDeveloper.Response developer = dMakerService.createDeveloper(defaultCreateRequest);
+        dMakerService.createDeveloper(defaultCreateRequest);
 
         //then
         verify(developerRepository, times(1))

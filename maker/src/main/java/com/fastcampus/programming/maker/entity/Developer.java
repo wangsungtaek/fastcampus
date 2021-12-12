@@ -1,6 +1,7 @@
 package com.fastcampus.programming.maker.entity;
 
 import com.fastcampus.programming.maker.code.StatusCode;
+import com.fastcampus.programming.maker.dto.CreateDeveloper;
 import com.fastcampus.programming.maker.type.DeveloperLevel;
 import com.fastcampus.programming.maker.type.DeveloperSkillType;
 import lombok.*;
