@@ -55,10 +55,11 @@ public class DMakerService {
                 .build();
     }
 
-    private void validateCreateDeveloperRequest(@NotNull CreateDeveloper.Request request) {
+    private void validateCreateDeveloperRequest(
+            @NotNull CreateDeveloper.Request request
+    ) {
         // business validation
-        validateDeveloperLevel(
-                request.getDeveloperLevel(),
+        request.getDeveloperLevel().validateExperienceYears(
                 request.getExperienceYears()
         );
 
@@ -66,17 +67,6 @@ public class DMakerService {
                 .ifPresent((developer -> {
                     throw new DMakerException(DMakerErrorCode.DUPLICATED_MEMBER_ID);
                 }));
-    }
-
-    private void validateDeveloperLevel(
-            DeveloperLevel developerLevel,
-            Integer experienceYears
-    ) {
-
-        if(experienceYears < developerLevel.getMinExperienceYears() ||
-                experienceYears > developerLevel.getMaxExperienceYears()) {
-            throw new DMakerException(DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
     }
 
     @Transactional(readOnly = true)
@@ -100,8 +90,8 @@ public class DMakerService {
     public DeveloperDetailDto editDeveloper(
             String memberId, EditDeveloper.Request request
     ) {
-        validateDeveloperLevel(
-                request.getDeveloperLevel(), request.getExperienceYears()
+        request.getDeveloperLevel().validateExperienceYears(
+                request.getExperienceYears()
         );
 
         return DeveloperDetailDto.fromEntity(
