@@ -20,6 +20,9 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.fastcampus.programming.maker.constant.DMakerConstant.MAX_JUNIOR_EXPERIENCE_YEARS;
+import static com.fastcampus.programming.maker.constant.DMakerConstant.MIN_SENIOR_EXPERIENCE_YEARS;
+
 @Service
 @RequiredArgsConstructor
 public class DMakerService {
@@ -67,15 +70,15 @@ public class DMakerService {
 
     private void validateDeveloperLevel(DeveloperLevel developerLevel, Integer experienceYears) {
         if (developerLevel == DeveloperLevel.SENIOR
-                && experienceYears < 10) {
+                && experienceYears < MIN_SENIOR_EXPERIENCE_YEARS) {
             throw new DMakerException(DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
         }
         if (developerLevel == DeveloperLevel.JUNGNIOR
-                && (experienceYears < 4 || experienceYears > 10)) {
+                && (experienceYears < MAX_JUNIOR_EXPERIENCE_YEARS || experienceYears > MIN_SENIOR_EXPERIENCE_YEARS)) {
             throw new DMakerException(DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
         }
         if (developerLevel == DeveloperLevel.JUNIOR
-                && experienceYears > 4) {
+                && experienceYears > MAX_JUNIOR_EXPERIENCE_YEARS) {
             throw new DMakerException(DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
         }
     }
