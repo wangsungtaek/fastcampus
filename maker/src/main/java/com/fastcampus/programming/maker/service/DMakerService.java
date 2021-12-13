@@ -68,17 +68,13 @@ public class DMakerService {
                 }));
     }
 
-    private void validateDeveloperLevel(DeveloperLevel developerLevel, Integer experienceYears) {
-        if (developerLevel == DeveloperLevel.SENIOR
-                && experienceYears < MIN_SENIOR_EXPERIENCE_YEARS) {
-            throw new DMakerException(DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
-        if (developerLevel == DeveloperLevel.JUNGNIOR
-                && (experienceYears < MAX_JUNIOR_EXPERIENCE_YEARS || experienceYears > MIN_SENIOR_EXPERIENCE_YEARS)) {
-            throw new DMakerException(DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
-        if (developerLevel == DeveloperLevel.JUNIOR
-                && experienceYears > MAX_JUNIOR_EXPERIENCE_YEARS) {
+    private void validateDeveloperLevel(
+            DeveloperLevel developerLevel,
+            Integer experienceYears
+    ) {
+
+        if(experienceYears < developerLevel.getMinExperienceYears() ||
+                experienceYears > developerLevel.getMaxExperienceYears()) {
             throw new DMakerException(DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
         }
     }
